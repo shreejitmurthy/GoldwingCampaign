@@ -15,6 +15,7 @@ add_executable(Main
     src/Source/AssetManager.cpp
     src/Source/Player.cpp
     src/Source/Game.cpp
+    src/Source/Controls.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
