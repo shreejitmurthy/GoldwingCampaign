@@ -1,4 +1,4 @@
-<p align="centre">
+<p align="center">
 <img src="images/goldwing-modified.png" alt="drawing" width="250"/>
 </p>
 
