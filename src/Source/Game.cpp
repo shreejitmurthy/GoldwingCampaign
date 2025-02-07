@@ -57,6 +57,13 @@ Game::Game(int width, int height) : screenWidth(width), screenHeight(height) {
     camera.fovy       = 45.0f;
     camera.projection = CAMERA_PERSPECTIVE;
 
+    skyCam.position = (Vector3){ 0.0f, 10.0f, 0.0f };  // 5 units above the origin
+    skyCam.target = (Vector3){ 0.0f, 0.0f, 0.0f };    // Looking at the origin
+    skyCam.up = (Vector3){ 0.0f, 0.0f, -1.0f };       // "Up" is negative Z to align with top-down
+    skyCam.fovy = 45.0f;                              // Field of view
+    skyCam.projection = CAMERA_PERSPECTIVE;           // Perspective projection
+
+
     am.LoadFontAsset("menuFont", LoadFontEx("../res/fonts/MorrisRoman-Black.ttf", 24, 0, 0));
 
     currentScreen = ScreenState::MainMenu;
@@ -68,7 +75,6 @@ void Game::run()
 {
     while (!WindowShouldClose()) {
         update();
-
         draw();
     }
 }
@@ -85,9 +91,10 @@ void Game::update() {
         } break;
 
         case ScreenState::Gameplay: {
-            DisableCursor();
+            // DisableCursor();
 
             player->update(GetFrameTime());
+            player->lookAt(camera.position);
         } break;
 
         default: {
@@ -118,13 +125,17 @@ void Game::draw() {
         case ScreenState::Gameplay: {
             BeginMode3D(camera);
             {
+                // Only draw these when using sky camera
+                // DrawCubeWires(camera.position, 1, 1, 1, RED);
+                // DrawLine3D(camera.position, camera.target, RED);
+                
                 player->draw();
                 DrawGrid(10, 1.0f);
             }
             EndMode3D();
 
-            player->drawHealth(camera);
-            DrawText(TextFormat("Camera distance to player: %.2f", Vector3Distance(camera.position, camera.target)), 100, 100, 24, BLACK);
+            // player->drawHealth(camera);
+            DrawText(TextFormat("Camera angle to player: %.2f", player->angle), 100, 100, 24, BLACK);
 
         } break;
     }

@@ -32,6 +32,8 @@ private:
     Player* player;
     Camera3D camera;
 
+    Camera3D skyCam;
+
     AssetManager am;
 
     ScreenState currentScreen;
