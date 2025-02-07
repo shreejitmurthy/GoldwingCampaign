@@ -57,7 +57,7 @@ Game::Game(int width, int height) : screenWidth(width), screenHeight(height) {
     camera.fovy       = 45.0f;
     camera.projection = CAMERA_PERSPECTIVE;
 
-    am.LoadFontAsset("menuFont", "../res/fonts/MorrisRoman-Black.ttf", 24);
+    am.LoadFontAsset("menuFont", LoadFontEx("../res/fonts/MorrisRoman-Black.ttf", 24, 0, 0));
 
     currentScreen = ScreenState::MainMenu;
 
