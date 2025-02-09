@@ -10,6 +10,11 @@ class Player : public Actor {
 public:
     float height;
     float angle;
+    float move_base_angle;
+    bool isTurning;
+    float turningTargetAngle;
+    bool isTurnLocked;
+    float lockedTurnAngle;
 
     Player(AssetManager am);
     ~Player();
@@ -18,7 +23,7 @@ public:
     void drawHealth(Camera3D camera) const override;
     void draw() const override;
 
-    void lookAt(Vector3 direction);
+    void updateAngle(Vector3 direction);
 
 private:
     Model model;
