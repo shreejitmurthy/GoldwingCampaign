@@ -21,7 +21,7 @@ void UpdateCamGoldwing(Camera3D* camera, int mode, float sensitivity, float zoom
 class Game {
 public:
     Game(int width, int height);
-    void run();
+    void Run();
 private:
     void update();
     void draw();

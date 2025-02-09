@@ -57,12 +57,11 @@ Game::Game(int width, int height) : screenWidth(width), screenHeight(height) {
     camera.fovy       = 45.0f;
     camera.projection = CAMERA_PERSPECTIVE;
 
-    skyCam.position = (Vector3){ 0.0f, 10.0f, 0.0f };  // 5 units above the origin
-    skyCam.target = (Vector3){ 0.0f, 0.0f, 0.0f };    // Looking at the origin
-    skyCam.up = (Vector3){ 0.0f, 0.0f, -1.0f };       // "Up" is negative Z to align with top-down
-    skyCam.fovy = 45.0f;                              // Field of view
-    skyCam.projection = CAMERA_PERSPECTIVE;           // Perspective projection
-
+    skyCam.position = (Vector3){ 0.0f, 10.0f, 0.0f };
+    skyCam.target = (Vector3){ 0.0f, 0.0f, 0.0f };
+    skyCam.up = (Vector3){ 0.0f, 0.0f, -1.0f };
+    skyCam.fovy = 45.0f;
+    skyCam.projection = CAMERA_PERSPECTIVE;
 
     am.LoadFontAsset("menuFont", LoadFontEx("../res/fonts/MorrisRoman-Black.ttf", 24, 0, 0));
 
@@ -71,8 +70,7 @@ Game::Game(int width, int height) : screenWidth(width), screenHeight(height) {
     playRec = (Rectangle){(float)(screenWidth / 2) - 125, (float)screenHeight - 200, 250, 50};
 }
 
-void Game::run()
-{
+void Game::Run() {
     while (!WindowShouldClose()) {
         update();
         draw();
@@ -94,7 +92,7 @@ void Game::update() {
             // DisableCursor();
 
             player->update(GetFrameTime());
-            player->lookAt(camera.position);
+            player->updateAngle(camera.position);
         } break;
 
         default: {
@@ -135,7 +133,6 @@ void Game::draw() {
             EndMode3D();
 
             // player->drawHealth(camera);
-            DrawText(TextFormat("Camera angle to player: %.2f", player->angle), 100, 100, 24, BLACK);
 
         } break;
     }
