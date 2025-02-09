@@ -1,29 +1,42 @@
 #pragma once
 
-#define MAX_KEYS 3
-
-#include <stdio.h>
-#include <stdbool.h>
-
+#include "raylib.h"
+#include <array>
 #include <initializer_list>
+#include <functional>
 
-// TODO: Make this more 'C++-ified?'
+constexpr int MAX_KEYS = 3;
 
-typedef struct {
-    int keys[MAX_KEYS];
-    int numKeys;
-    int held;
-} action_t;
+class Action {
+public:
+    std::array<int, MAX_KEYS> keys{};
+    int numKeys = 0;
+    int held = 0;
 
-typedef struct {
-    action_t forward;
-    action_t back;
-    action_t left;
-    action_t right;
-} controls_t;
+    Action() = default;
 
-typedef void (*control_bind_callback_t)(controls_t *controls);
+    void addKey(int key);
 
-void init_controls(controls_t *controls, control_bind_callback_t callback);
-bool action_key_down(std::initializer_list<action_t> actions);
+    bool isKeyDown() const;
+};
 
+class Controls {
+public:
+    Action forward;
+    Action back;
+    Action left;
+    Action right;
+
+    using BindCallback = std::function<void(Controls&)>;
+    
+    void init(BindCallback callback = nullptr);
+};
+
+inline bool actionKeyDown(std::initializer_list<Action> actions) {
+    for (const auto& action : actions) {
+        if (action.isKeyDown()) {
+            return true;
+        }
+    }
+    return false;
+}
