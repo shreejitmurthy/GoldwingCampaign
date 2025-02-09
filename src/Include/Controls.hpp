@@ -1,6 +1,5 @@
 #pragma once
 
-#include "raylib.h"
 #include <array>
 #include <initializer_list>
 #include <functional>
@@ -28,7 +27,7 @@ public:
     Action right;
 
     using BindCallback = std::function<void(Controls&)>;
-    
+
     void init(BindCallback callback = nullptr);
 };
 

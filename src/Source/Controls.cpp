@@ -16,8 +16,7 @@ bool Action::isKeyDown() const {
     return false;
 }
 
-void Controls::init(BindCallback callback)
-{
+void Controls::init(BindCallback callback) {
     if (callback) {
         callback(*this);
     }
