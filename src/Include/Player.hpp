@@ -11,10 +11,9 @@ public:
     float height;
     float angle;
     float move_base_angle;
-    bool isTurning;
-    float turningTargetAngle;
     bool isTurnLocked;
     float lockedTurnAngle;
+    bool directionDependantTurn;
 
     Player(AssetManager am);
     ~Player();
@@ -23,10 +22,10 @@ public:
     void drawHealth(Camera3D camera) const override;
     void draw() const override;
 
-    void updateAngle(Vector3 direction);
+    void updateLookDirection(Vector3 direction);
 
 private:
     Model model;
     BoundingBox bBox;
-    controls_t controls;
+    Controls controls;
 };
