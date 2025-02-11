@@ -49,6 +49,7 @@ Game::Game(int width, int height) : screenWidth(width), screenHeight(height) {
     SetTargetFPS(60);
 
     player = new Player(am);
+    player->directionDependantTurn = true;
 
     const float cameraHeightOffset = player->height / 2.0f;
     camera.position   = { 0.0f, player->position.y + cameraHeightOffset, 4.0f };
@@ -89,10 +90,10 @@ void Game::update() {
         } break;
 
         case ScreenState::Gameplay: {
-            // DisableCursor();
+            DisableCursor();
 
             player->update(GetFrameTime());
-            player->updateAngle(camera.position);
+            player->updateLookDirection(camera.position);
         } break;
 
         default: {
